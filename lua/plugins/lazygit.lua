@@ -5,5 +5,5 @@ return {
 			"nvim-lua/plenary.nvim",
 		},
 	},
-	vim.keymap.set("n", "<leader>gg", ":LazyGit<CR>", { silent = true }),
+	vim.keymap.set("n", "<leader>gg", ":LazyGit<CR>", { silent = true, desc = "Lazygit" }),
 }

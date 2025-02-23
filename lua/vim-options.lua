@@ -3,6 +3,9 @@ vim.cmd("set tabstop=2")
 vim.cmd("set softtabstop=2")
 vim.cmd("set shiftwidth=2")
 vim.cmd("set clipboard=unnamedplus")
+vim.cmd("set laststatus=3")
+vim.cmd("set cmdheight=0")
+
 vim.g.mapleader = " "
 vim.g.background = "light"
 
@@ -17,3 +20,4 @@ vim.keymap.set("n", "<leader>w", ":write<CR>")
 
 vim.keymap.set("n", "<leader>h", ":nohlsearch<CR>")
 vim.wo.number = true
+vim.wo.relativenumber = true
