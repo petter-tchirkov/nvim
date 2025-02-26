@@ -15,42 +15,46 @@ return {
 	},
 	{
 		"neovim/nvim-lspconfig",
+		dependencies = { "saghen/blink.cmp" },
+
 		lazy = false,
+		vim.diagnostic.config({
+			virtual_text = false,
+		}),
 		config = function()
-			local capabilities = require("cmp_nvim_lsp").default_capabilities()
-
-			vim.diagnostic.config({
-				virtual_text = false,
-			})
-
+			local capabilities = require("blink.cmp").get_lsp_capabilities()
+			local vue_typescript_plugin_path = vim.fn.stdpath("data")
+				.. "/mason/packages/vue-language-server/node_modules/@vue/language-server/node_modules/@vue/typescript-plugin"
 			local lspconfig = require("lspconfig")
+
 			lspconfig.ts_ls.setup({
 				init_options = {
 					plugins = {
 						{
 							name = "@vue/typescript-plugin",
-							location = "/home/theonlyvoivod/.nvm/versions/node/v22.13.1/lib/node_modules/@vue/typescript-plugin",
+							-- location = "/home/theonlyvoivod/.nvm/versions/node/v22.13.1/lib/node_modules/@vue/typescript-plugin",
+							location = vue_typescript_plugin_path,
 							languages = { "vue" },
 						},
 					},
 				},
-				settings = {
-					typescript = {
-						tsserver = {
-							useSyntaxServer = false,
-						},
-						inlayHints = {
-							includeInlayParameterNameHints = "all",
-							includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-							includeInlayFunctionParameterTypeHints = true,
-							includeInlayVariableTypeHints = true,
-							includeInlayVariableTypeHintsWhenTypeMatchesName = true,
-							includeInlayPropertyDeclarationTypeHints = true,
-							includeInlayFunctionLikeReturnTypeHints = true,
-							includeInlayEnumMemberValueHints = true,
-						},
-					},
-				},
+				-- settings = {
+				-- 	typescript = {
+				-- 		tsserver = {
+				-- 			useSyntaxServer = false,
+				-- 		},
+				-- 		inlayHints = {
+				-- 			includeInlayParameterNameHints = "all",
+				-- 			includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+				-- 			includeInlayFunctionParameterTypeHints = true,
+				-- 			includeInlayVariableTypeHints = true,
+				-- 			includeInlayVariableTypeHintsWhenTypeMatchesName = true,
+				-- 			includeInlayPropertyDeclarationTypeHints = true,
+				-- 			includeInlayFunctionLikeReturnTypeHints = true,
+				-- 			includeInlayEnumMemberValueHints = true,
+				-- 		},
+				-- 	},
+				-- },
 			})
 			lspconfig.solargraph.setup({
 				capabilities = capabilities,
@@ -96,16 +100,46 @@ return {
 					},
 				},
 			})
+			lspconfig.tailwindcss.setup({
+				capabilities = capabilities,
+				root_dir = lspconfig.util.root_pattern(
+					"tailwind.config.js",
+					"tailwind.config.ts",
+					"tailwind.config.mjs"
+				),
+				settings = {
+					tailwindCSS = {
+						classAttributes = { ".*ClassName", "class" },
+						experimental = {
+							classRegex = {
+								{
+									"clsx\\(([^)]*)\\)",
+									"(?:'|\"|`)([^']*)(?:'|\"|`)",
+								},
+							},
+						},
+					},
+				},
+			})
 			vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
 			vim.keymap.set("n", "gd", vim.lsp.buf.definition, {})
 			vim.keymap.set("n", "gr", vim.lsp.buf.references, {})
 			vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, {})
 			vim.o.updatetime = 250
+
 			vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
 				group = vim.api.nvim_create_augroup("float_diagnostic_cursor", { clear = true }),
 				callback = function()
 					vim.diagnostic.open_float(nil, { focus = false, scope = "cursor" })
 				end,
+			})
+
+			vim.diagnostic.config({
+				signs = true,
+				underline = true,
+				update_in_insert = false,
+				virtual_text = false,
+				severity_sort = true,
 			})
 		end,
 	},

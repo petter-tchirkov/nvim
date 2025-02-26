@@ -20,6 +20,12 @@ return {
 			temperature = 0,
 			max_tokens = 4096,
 		},
+		hints = {
+			enabled = false,
+		},
+		windows = {
+			width = 40,
+		},
 	},
 	-- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
 	build = "make",
