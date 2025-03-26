@@ -214,17 +214,18 @@ return {
 		-- Default list of enabled providers defined so that you can extend it
 		-- elsewhere in your config, without redefining it, due to `opts_extend`
 		sources = {
-			default = { "lsp", "path", "snippets", "buffer" },
+			-- default = { "lsp", "path", "snippets", "buffer" },
+			default = { "lsp", "buffer" },
 			providers = {
 				lsp = {
-					min_keyword_length = 2, -- Number of characters to trigger porvider
+					min_keyword_length = 1, -- Number of characters to trigger porvider
 					score_offset = 0, -- Boost/penalize the score of the items
 				},
 				path = {
 					min_keyword_length = 0,
 				},
 				snippets = {
-					min_keyword_length = 2,
+					min_keyword_length = 3,
 				},
 				buffer = {
 					min_keyword_length = 2,

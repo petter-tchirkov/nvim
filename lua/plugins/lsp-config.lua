@@ -26,6 +26,12 @@ return {
 			local vue_typescript_plugin_path = vim.fn.stdpath("data")
 				.. "/mason/packages/vue-language-server/node_modules/@vue/language-server/node_modules/@vue/typescript-plugin"
 			local lspconfig = require("lspconfig")
+			local on_attach = function(client, bufnr)
+				local opts = { noremap = true, silent = true, buffer = bufnr }
+
+				--set keybind for go to definition
+				keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+			end
 
 			lspconfig.ts_ls.setup({
 				init_options = {
@@ -133,14 +139,10 @@ return {
 					vim.diagnostic.open_float(nil, { focus = false, scope = "cursor" })
 				end,
 			})
-
-			vim.diagnostic.config({
-				signs = true,
-				underline = true,
-				update_in_insert = false,
-				virtual_text = false,
-				severity_sort = true,
-			})
+			vim.lsp.handlers["textDocument/publishDiagnostics"] =
+				vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+					virtual_text = false,
+				})
 		end,
 	},
 }

@@ -10,6 +10,7 @@ vim.g.mapleader = " "
 vim.g.background = "light"
 
 vim.opt.swapfile = false
+vim.opt.wrap = false
 
 -- Navigate vim panes better
 vim.keymap.set("n", "<c-k>", ":wincmd k<CR>")
@@ -21,3 +22,8 @@ vim.keymap.set("n", "<leader>w", ":write<CR>")
 vim.keymap.set("n", "<leader>h", ":nohlsearch<CR>")
 vim.wo.number = true
 vim.wo.relativenumber = true
+
+vim.keymap.set('v', '<leader>fb', vim.lsp.buf.format, {silent = true, buffer = 0})
+
+
+
