@@ -6,7 +6,7 @@ function M.setup()
 	vim.lsp.config("biome", {
 		cmd = { "biome", "lsp-proxy" }, -- Replace with the actual command for Biome
 		root_dir = vim.fn.getcwd(),
-		filetypes = { "javascript", "typescript", "javascriptreact", "typescriptreact" }, -- Adjust filetypes as needed
+		filetypes = { "javascript", "typescript", "javascriptreact", "typescriptreact", "vue" }, -- Adjust filetypes as needed
 		capabilities = Lsp.capabilities,
 		on_attach = Lsp.on_attach,
 		settings = {

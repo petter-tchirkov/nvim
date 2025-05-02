@@ -1,5 +1,6 @@
 -- LSP for TypeScript and JavaScript
 local Lsp = require("lsp.shared")
+local vue_language_server_path = "/usr/lib/node_modules/@vue/typescript-plugin/"
 
 local M = {}
 
@@ -14,6 +15,7 @@ function M.setup()
 			"typescript",
 			"typescriptreact",
 			"typescript.tsx",
+			"vue"
 		},
 		capabilities = Lsp.capabilities,
 		on_attach = Lsp.on_attach,
@@ -27,6 +29,17 @@ function M.setup()
 						enableServerSideFuzzyMatch = true,
 					},
 				},
+				tsserver = {
+					globalPlugins = {
+					  {
+					    name = '@vue/typescript-plugin',
+					    location = vue_language_server_path,
+					    languages = { 'vue' },
+					    configNamespace = "typescript",
+					    enableForWorkspaceTypeScriptVersions = true,
+					  },
+					},
+				      },
 			},
 			typescript = {
 				updateImportsOnFileMove = { enabled = "always" },

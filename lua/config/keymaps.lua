@@ -70,3 +70,5 @@ end, { noremap = true, silent = true })
 vim.keymap.set("n", "<A-j>", function()
 	resize_split("down")
 end, { noremap = true, silent = true })
+
+vim.keymap.set("n", "q", "<cmd>q<CR>")

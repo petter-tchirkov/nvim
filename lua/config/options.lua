@@ -1,3 +1,10 @@
+vim.opt.tabstop = 2
+vim.opt.softtabstop = 2
+vim.opt.shiftwidth = 2
+vim.opt.expandtab = true
+vim.opt.autoindent = true
+vim.opt.smartindent = true
+
 -- Enable persistent command history
 vim.opt.history = 1000 -- Keep 1000 lines of command history
 
@@ -50,5 +57,3 @@ vim.opt.equalalways = false -- Don't resize splits automatically
 
 vim.opt.cursorline = true
 vim.opt.laststatus = 3
-
-

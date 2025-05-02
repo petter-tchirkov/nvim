@@ -2,8 +2,10 @@
 return {
 	{
 		"saghen/blink.cmp",
+		lazy = true,
 		dependencies = {
 			"folke/lazydev.nvim",
+			"L3MON4D3/LuaSnip",
 		},
 		event = "InsertEnter",
 		-- use a release tag to download pre-built binaries
@@ -17,8 +19,8 @@ return {
 		opts = {
 			keymap = {
 				preset = "enter",
-				["<Tab>"] = {'select_next', 'fallback'},
-				["<S-Tab"] = {'select_prev', 'fallback'}
+				["<Tab>"] = { "select_next", "fallback" },
+				["<S-Tab"] = { "select_prev", "fallback" },
 			},
 			completion = {
 				-- Controls whether the documentation window will automatically show when selecting a completion item
@@ -45,6 +47,7 @@ return {
 			cmdline = {
 				enabled = true,
 			},
+			snippets = { preset = "luasnip" },
 		},
 		-- without having to redefine it
 		opts_extend = {
